@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsbDeviceSimulator", "NsbDeviceSimulator.csproj", "{48D30431-656B-4D4A-8D5F-809E94601573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsbDeviceSimulator.Type", "NsbDeviceSimulator.Type\NsbDeviceSimulator.Type.csproj", "{29F837C4-A0EB-43EC-A173-09E369FAEAAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsbDeviceSimulator.Logic", "NsbDeviceSimulator.Logic\NsbDeviceSimulator.Logic.csproj", "{AEDE9006-CF75-47DE-9859-C3754A849408}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48D30431-656B-4D4A-8D5F-809E94601573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D30431-656B-4D4A-8D5F-809E94601573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D30431-656B-4D4A-8D5F-809E94601573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D30431-656B-4D4A-8D5F-809E94601573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F837C4-A0EB-43EC-A173-09E369FAEAAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F837C4-A0EB-43EC-A173-09E369FAEAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F837C4-A0EB-43EC-A173-09E369FAEAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F837C4-A0EB-43EC-A173-09E369FAEAAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEDE9006-CF75-47DE-9859-C3754A849408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEDE9006-CF75-47DE-9859-C3754A849408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEDE9006-CF75-47DE-9859-C3754A849408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEDE9006-CF75-47DE-9859-C3754A849408}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
