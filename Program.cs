@@ -1,17 +1,16 @@
-﻿using System;
-using NsbDeviceSimulator;
-using NsbDeviceSimulator.Logic;
+﻿using NsbDeviceSimulator.Logic;
 using NsbDeviceSimulator.Type;
 
-class Program
+namespace NsbDeviceSimulator;
+
+internal static class Program
 {
-    static void Main()
+    private static void Main()
     {
-        var config = ConfigHelper.GetConfig;
-        var host = config.Configs["Server:Local"];
-        var port = Convert.ToInt32(config.Configs["Port"]);
-        var agent = new Agent(host, port, DeviceType.Cellular, "02387448");
-        agent.Start();
-        while (true) ;
+        _ = new Agent(ConfigHelper.Configs["Server:Dev"]!, Convert.ToInt32(ConfigHelper.Configs["Port"]), DeviceType.Cellular, "02387448", CancellationToken.None);
+        _ = new Agent(ConfigHelper.Configs["Server:Dev"]!, Convert.ToInt32(ConfigHelper.Configs["Port"]), DeviceType.Cellular, "12345678", CancellationToken.None);
+        while (true)
+        {
+        }
     }
 }

@@ -1,11 +1,23 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace NsbDeviceSimulator;
+namespace NsbDeviceSimulator.Logic;
 
 public class ConfigHelper
 {
     private static IConfigurationRoot? _configurationRoot;
     private static ConfigHelper? _instance;
+    
+    public static IConfigurationRoot Configs
+    {
+        get
+        {
+            lock(ConfigLock) 
+            {
+                _instance ??= new ConfigHelper();
+                return _configurationRoot!;
+            }
+        }
+    }
 
     private static readonly object ConfigLock = new();
 
@@ -16,17 +28,4 @@ public class ConfigHelper
             .AddJsonFile("appsettings.json")
             .Build();
     }
-
-    public static ConfigHelper GetConfig
-    {
-        get
-        {
-            lock (ConfigLock)
-            {
-                return _instance ??= new ConfigHelper();
-            }
-        }
-    }
-    
-    public IConfigurationRoot? Configs => _configurationRoot;
 }

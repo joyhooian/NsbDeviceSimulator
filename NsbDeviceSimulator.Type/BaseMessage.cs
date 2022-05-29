@@ -6,6 +6,7 @@ public class BaseMessage
 {
     public Header? Header { get; set; }
     public Body Body { get; set; }
+    public Semaphore? Semaphore { get; set; }
     
     public int HeaderLength
     {
@@ -29,8 +30,8 @@ public class BaseMessage
 
 public class Header
 {
-    private static int StartByte = 0x7E;
-    
+    private const int StartByte = 0x7E;
+
     public Command Command { get; set; }
     public short DataLength { get; set; }
     public byte[] RawData { get; set; }
@@ -47,46 +48,45 @@ public class Header
         DataLength = dataLength;
     }
 
-    public static explicit operator Header?(byte[]? header)
+    public static bool TryParse(byte[]? data, out Header? header)
     {
-        if (header is not { Length: 4 }) return null;
+        header = null;
+        if (data is not { Length: 4 }) return false;
 
-        if (header[(int)HeaderOffset.StartByteOffset] != StartByte) return null;
+        if (data[(int)HeaderOffset.StartByteOffset] != StartByte) return false;
 
-        if (Enum.IsDefined(typeof(Command), (int)header[(int)HeaderOffset.Command]))
-        {
-            return new Header((Command)header[(int)HeaderOffset.Command],
-                (short)(header[(int)HeaderOffset.LengthH] | header[(int)HeaderOffset.LengthL]));
-        }
+        if (!Enum.IsDefined(typeof(Command), (int)data[(int)HeaderOffset.Command])) return false;
 
-        return null;
+        header = new Header((Command)data[(int)HeaderOffset.Command],
+            (short)(data[(int)HeaderOffset.LengthH] | data[(int)HeaderOffset.LengthL]));
+        return true;
     }
 }
 
 public class Body
 {
-    internal static int EndByte = 0xEF;
+    private const int EndByte = 0xEF;
     public byte[] Data { get; set; }
     
     public byte[] RawData { get; set; }
 
     public Body(byte[]? data)
     {
-        if (data != null)
-        {
-            Data = data;
-        }
+        Data = data ?? Array.Empty<byte>();
         RawData = new byte[Data.Length + 1];
         Array.Copy(Data, RawData, Data.Length);
-        RawData[^1] = (byte)EndByte;
+        RawData[^1] = EndByte;
     }
 
-    public static explicit operator Body?(byte[] body)
+    public static bool TryParse(byte[]? data, out Body? body)
     {
-        if (body[^1] != EndByte) return null;
-        var data = new byte[body.Length - 1];
-        Array.Copy(body, data, body.Length - 1);
-        return new Body(data);
+        body = null;
+        if (data == null) return false;
+
+        if (data[^1] != EndByte) return false;
+
+        body = new Body(data[..^1]);
+        return true;
     }
 }
 
@@ -96,10 +96,4 @@ internal enum HeaderOffset
     Command,
     LengthH,
     LengthL
-}
-
-public enum DataType
-{
-    Header,
-    Body
 }
